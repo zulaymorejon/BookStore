@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue"></script>
+    </head>
+    <body>
+        <!--esta etiqueta es definida x el usuario y solo aqui funcionara veu-->
+        <main>
+            <!--Condicionales en vue-->
+            <!--$DATA ES PARA IMPRIMIR TODOS LOS COMPONENTES DE MI VARIABLE-->
+            {{ $data }}
+            <input v-model="nota"/>
+            <b v-if="nota && nota>6 && nota<=10">Aprobado</b>
+            <b v-else-if="nota && nota>10">Fuera de rango</b>
+            <b v-else>Reprobado</b>
+        </main>
+    </body>
+    <script type="text/javascript">
+    new Vue({
+        //aqui hace referencia a la etiqueta main si pongo una etiqueta de este tipo todo lo que esta dentro
+        //dentro de la etiqueta se renderiza como javascript
+        el:'main',
+        //en data van todas las variables que hacen que se ejecute el proceso
+        data:{
+            nota:'6'
+        }
+    });
+    </script>
+</html>
