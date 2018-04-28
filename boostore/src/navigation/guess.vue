@@ -9,6 +9,7 @@
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items class="hidden-sm-and-down">
+        <v-btn flat to="/about">{{$t('navigation.about')}}</v-btn>
         <v-btn flat to="/login">{{$t('navigation.login')}}</v-btn>
         <v-btn flat to="/register">{{$t('navigation.register  ')}}</v-btn>
         </v-toolbar-items>

@@ -37,7 +37,8 @@ export default {
     close_menu: 'Cerrar menú',
     products_in_cart: 'Carrito ({number})',
     cart: 'Carrito',
-    orders: 'Mis pedidos'
+    orders: 'Mis pedidos',
+    about: 'Acerca de'
     },
     welcome: {
     title: 'Bienvenido a {app}',

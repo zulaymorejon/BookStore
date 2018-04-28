@@ -22,12 +22,14 @@
 //importa la pagina
 import AppFooter from "@/components/Footer";
 import GuestNavigation from "@/navigation/guess";
+import PersonalInformation from "@/components/About";
 
 export default {
   //agrega los componentes
   components:{
     AppFooter,
-    GuestNavigation
+    GuestNavigation,
+    PersonalInformation
   },
   name: 'App'
 }
