@@ -5,9 +5,10 @@ import colors from 'vuetify/es5/util/colors';
 
 Vue.use(Vuetify,{
     theme:{
-        primary:colors.red.darkend1,
+        primary:colors.red.darken4,
         secondary:colors.red.lighten4,
         accent:colors.indigo.base,
-        error:colors.red.accent3
+        error:colors.red.accent4,
+        bluecustom: colors.purple.lighten2
     }
 });

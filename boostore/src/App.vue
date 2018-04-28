@@ -1,12 +1,34 @@
 <template>
-  <div id="app">
+  <!--<div id="app">
     <img src="./assets/logo.png">
     <router-view/>
-  </div>
+  </div>-->
+
+  <main>
+    <v-app>
+      <v-content>
+        <guest-navigation/>
+        <v-container class="mt-3 mb-3">
+          <router-view/>
+        </v-container>
+        <app-footer/>
+      </v-content>
+    </v-app>
+    
+  </main>
 </template>
 
 <script>
+//importa la pagina
+import AppFooter from "@/components/Footer";
+import GuestNavigation from "@/navigation/guess";
+
 export default {
+  //agrega los componentes
+  components:{
+    AppFooter,
+    GuestNavigation
+  },
   name: 'App'
 }
 </script>
