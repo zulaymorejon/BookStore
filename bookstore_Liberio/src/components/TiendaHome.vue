@@ -5,7 +5,7 @@
         <v-card-media src="/static/doc-images/cards/desert.jpg" height="200px">
         </v-card-media>
         <v-card-title primary-title>
-          <div>
+          <div>                                                     
             <h3 class="headline mb-0">Kangaroo Valley Safari</h3>
             <div>Located two hours south of Sydney in the <br>Southern Highlands of New South Wales, ...</div>
           </div>
