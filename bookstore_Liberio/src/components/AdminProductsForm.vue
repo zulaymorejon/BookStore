@@ -1,0 +1,111 @@
+<template>
+  <v-layout row justify-center>
+    <v-dialog persistent max-width="510" v-model="productsDialog">
+      <v-btn slot="activator" color="primary" dark>{{$t('admin.productsTable.newProduct')}}</v-btn>
+      <v-card>
+        <v-card-title class="headline">{{$t('admin.productsTable.newProduct')}}</v-card-title>
+        <v-card-text>
+            <v-container grip-list-md>
+                <v-layout wrap>
+                    <v-flex>
+                        <!--con : hago referencia a la propiedad como tal-->
+                       <v-text-field :label="$t('admin.productsTable.name')" v-model="productForEdit.name"/>
+                    </v-flex>
+                    <v-spacer/>
+                    <v-flex>
+                       <v-text-field :label="$t('admin.productsTable.price')" v-model="productForEdit.price"/>
+                    </v-flex>
+                    <v-spacer/>
+                    <v-flex xs12>
+                        <a v-if="productForEdit.url" :href="productForEdit.url" target="_blank">{{$t('admin.productsTable.openfile')}}</a>
+                        <file-input accept="image/*" @input="getUploapFile"/>
+                    </v-flex>
+                </v-layout>
+            </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="green darken-1" flat @click="close">{{$t('common.close')}}</v-btn>
+          <v-btn color="green darken-1" flat v-if="$store.getters.productDialogEditMode">Actualizar</v-btn>
+          <v-btn v-else color="green darken-1" flat @click="add">Agregar</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </v-layout>
+</template>
+
+<script>
+import {db} from "@/main";
+import * as faker from 'faker';
+import {mapGetters} from 'vuex';
+import FileInput from "@/components/helpers/FileInput";
+
+export default {
+  name:"admin-products-from",
+  components: {FileInput},
+  methods:{
+      close(){
+          this.$store.commit('toggleProductsDialog',{
+              editMode:false,
+              product:{
+                  id:null,
+                  name: '',
+                  price: '',
+                  url: '',
+                  file_id: ''
+              }
+          })
+      },
+      add(){
+          this.productForEdit.id.faker.random.alphanumeric(16);
+          const product = Object.assign({}, this.productForEdit);
+          product.createdAt = Date.now();
+          db.collection('products').doc(this.productForEdit.id).set(product).then(()=>{
+              if(this.image){
+                  this.$store.dispatch('pushFileStorage',{
+                      fileToUpload:this.image,
+                      id:product.id
+                  }).then(()=>{
+                      alert('Guardado');
+                  })
+              }else{
+                  alert('Error')
+              }
+              
+          })
+      },
+      getUploapFile(e){
+          this.image = e;
+      },
+      update(){
+          const product = Object.assign({}, this.productForEdit);
+          db.collection('products').doc(product.id).update(product).then(()=>{
+              if(this.image){
+                  if(product.url){
+                      this.$store.dispatch('removeFile',product).then(()=>{
+                          this.$store.dispatch('updateDeleteProduct',product.id);
+                      })
+                  }
+                  this.$store.dispatch('pushFileToStorage',{fileToUpload:this.image.product.id}).then(()=>{
+                      alert('Actualizado');
+                  })
+              }else{
+                  alert('Actualizado');
+              }
+          })
+      }
+  },
+  computed:{
+      productsDialog:{
+          get(){
+              return this.$store.getters.productsDialog;
+          },
+          set(){
+              this.close();
+          }
+      },
+      //mapeo todos los getters que yo quiero
+      ...mapGetters(['productForEdit'])
+  }
+}
+</script>
