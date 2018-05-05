@@ -27,6 +27,18 @@ import AdminProductsForm from "@/components/AdminProductsForm";
 export default {
   components: {AdminProductsForm},
   name:"admin-product",
+  methods:{
+      editarProducto(product){
+          this.$store.commit('toggleProductDialog',{editMode:true, product})
+      },
+      eliminarProducto(product){
+          db.collection('products').doc(product.id).delete().then(()=>{
+              if(product.url){
+                  this.$store.dispatch('removeFile',product);
+              }
+          });
+      }
+  },
   data(){
       return{
           headers:[

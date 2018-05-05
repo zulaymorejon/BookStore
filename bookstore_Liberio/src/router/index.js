@@ -5,6 +5,7 @@ import Register from '@/components/Register'
 import Login from '@/components/Login'
 import AdminHome from '@/components/AdminHome'
 import AdminProducts from '@/components/AdminProducts'
+import ShopHome from '@/components/TiendaHome'
 Vue.use(Router)
 
 
@@ -55,6 +56,12 @@ const router = new Router({
           meta:{title:'Administrar Libros'}
         }
       ]
+    },
+    {
+      path: '/shop',
+      name: 'shpp',
+      component: ShopHome,
+      meta:{Auth:false, title:'Tienda'}
     }
   ]
 })
